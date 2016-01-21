@@ -24,6 +24,7 @@
 		EE701A0D1C4F11280020DF96 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE701A031C4F11270020DF96 /* libavformat.a */; };
 		EE701A0E1C4F11280020DF96 /* libsamplerate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE701A041C4F11270020DF96 /* libsamplerate.a */; };
 		EE701A0F1C4F11280020DF96 /* libyaml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE701A051C4F11270020DF96 /* libyaml.a */; };
+		EE701A131C50652B0020DF96 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE701A121C50652B0020DF96 /* particle.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		EE701A031C4F11270020DF96 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = ../../../../../../../usr/local/lib/libavformat.a; sourceTree = "<group>"; };
 		EE701A041C4F11270020DF96 /* libsamplerate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsamplerate.a; path = ../../../../../../../usr/local/lib/libsamplerate.a; sourceTree = "<group>"; };
 		EE701A051C4F11270020DF96 /* libyaml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyaml.a; path = ../../../../../../../usr/local/lib/libyaml.a; sourceTree = "<group>"; };
+		EE701A111C5064DF0020DF96 /* particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particle.h; sourceTree = "<group>"; };
+		EE701A121C50652B0020DF96 /* particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particle.cpp; sourceTree = "<group>"; };
 		F5F6013EE592DAFFEE14DDD9 /* copy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = copy.h; path = ../../../addons/ofxAudioAnalyzer/libs/essentia/include/essentia/streaming/algorithms/copy.h; sourceTree = SOURCE_ROOT; };
 		FA8C3C121750937F67238868 /* tnt2essentiautils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tnt2essentiautils.h; path = ../../../addons/ofxAudioAnalyzer/libs/essentia/include/essentia/utils/tnt/tnt2essentiautils.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -445,6 +448,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				EE701A111C5064DF0020DF96 /* particle.h */,
+				EE701A121C50652B0020DF96 /* particle.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -547,6 +552,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
+				EE701A131C50652B0020DF96 /* particle.cpp in Sources */,
 				1D397CC89DDD782F892B7483 /* ofxAudioAnalyzer.cpp in Sources */,
 				3800542E2A9FC9F9F4D07001 /* ofxFboBlur.cpp in Sources */,
 			);

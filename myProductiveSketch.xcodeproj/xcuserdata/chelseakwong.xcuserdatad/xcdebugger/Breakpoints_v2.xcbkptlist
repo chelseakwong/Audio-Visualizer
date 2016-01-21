@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "474962377.743917"
+            timestampString = "475087711.925871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "testApp::setup()"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.h"
-            timestampString = "474958655.433277"
+            timestampString = "475087132.581133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "class testApp"
             landmarkType = "3">
             <Locations>
@@ -42,11 +42,11 @@
                   moduleName = "myProductiveSketch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
-                  timestampString = "474944278.007833"
+                  timestampString = "475083731.316136"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
                   offsetFromSymbolStart = "9">
                </Location>
                <Location
@@ -57,11 +57,11 @@
                   moduleName = "myProductiveSketch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
-                  timestampString = "474944278.008149"
+                  timestampString = "475083731.316451"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7"
-                  endingLineNumber = "7"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
                   offsetFromSymbolStart = "9">
                </Location>
             </Locations>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "474962377.743917"
+            timestampString = "475087711.925871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82">
+            startingLineNumber = "104"
+            endingLineNumber = "104">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

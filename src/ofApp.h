@@ -1,10 +1,12 @@
 #pragma once
 
 #include "ofMain.h"
+#include "particle.h"
 #include "ofxFboBlur.h"
 #include "ofxAudioAnalyzer.h"
 
-#define NBALLS 16
+#define NBALLS 12
+#define NPARTICLES 300
 
 
 class ofBall{
@@ -14,7 +16,7 @@ public:
     void draw();
     
     //constructor
-    ofBall();
+    ofBall(int angle);
     //variables
     float x;
     float y;
@@ -26,6 +28,7 @@ private:
 
 class testApp : public ofBaseApp{
 public:
+    ofBall* myBall[NBALLS];
     void setup();
     void update();
     void draw();
@@ -56,6 +59,6 @@ public:
     float *buffer_1;
     float *buffer_2;
     
-    ofBall myBall[NBALLS];
+    Particle particles[NPARTICLES];
 };
 

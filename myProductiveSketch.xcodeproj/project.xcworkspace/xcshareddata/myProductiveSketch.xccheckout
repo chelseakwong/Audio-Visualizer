@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C64FD135-19C5-464E-A492-9A94CE158C75</string>
+	<key>IDESourceControlProjectName</key>
+	<string>myProductiveSketch</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>466ADBAE1C1B9ADF68341DF750C3362D6015F141</key>
+		<string>https://github.com/chelseakwong/Audio-Visualizer-.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>myProductiveSketch.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>466ADBAE1C1B9ADF68341DF750C3362D6015F141</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chelseakwong/Audio-Visualizer-.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>466ADBAE1C1B9ADF68341DF750C3362D6015F141</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>466ADBAE1C1B9ADF68341DF750C3362D6015F141</string>
+			<key>IDESourceControlWCCName</key>
+			<string>myProductiveSketch</string>
+		</dict>
+	</array>
+</dict>
+</plist>
