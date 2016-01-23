@@ -4,8 +4,8 @@
 #include "ofxFboBlur.h"
 #include "ofxAudioAnalyzer.h"
 
-#define NBALLS 5
-#define NLayer1 1
+#define NBALLS 12
+#define NLayer1 4
 
 class ofBall{
 public:
@@ -14,7 +14,6 @@ public:
     virtual void update(float rms);
     virtual void draw();
     virtual void drawInfo();
-    
     
     //variables
     float angle;

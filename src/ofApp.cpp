@@ -1,10 +1,11 @@
 #include "ofApp.h"
 #include <math.h>
+#include <stdio.h>
 
 //-------------- ofBall = cyan ones, layer 2 -------------
 void ofBall::setup(float angle){
-//    angle = ang;
-    float radianAng = M_PI/2 - 2*M_PI*(angle/360);
+    float radianAng = M_PI/2 - 2*M_PI*float(angle/360.0);
+    this->angle = radianAng;
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
     radius = 150;
@@ -17,7 +18,7 @@ void ofBall::setup(float angle){
     speedY = 1;
     
     dim = 10;
-    angle = radianAng;
+//    angle = radianAng;
 }
 
 void ofBall::update(float rms){
@@ -74,10 +75,13 @@ void ofBall::drawInfo(){
 //public:
 
 void layer1Ball::setup(float angle){
-    float radianAng = M_PI/2 - 2*M_PI*(angle/360);
+    float radianAng = M_PI/2 - 2*M_PI*float(angle/360.0);
+    fprintf(stderr,"angle in = %F\n",angle);
+    fprintf(stderr,"radian angle out = %F\n",radianAng);
+    this->angle = radianAng;
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
-    radius = 80;
+    radius = 120;
     x =  cos(radianAng)*radius + centerX;
     y =  centerY - sin(radianAng)*radius;
     
@@ -86,8 +90,8 @@ void layer1Ball::setup(float angle){
     speedX = 1;
     speedY = 1;
     
-    dim = 5;
-    angle = radianAng;
+    dim = 10;
+    //    angle = radianAng;
 }
 
 void layer1Ball::update(float rms){
@@ -99,20 +103,39 @@ void layer1Ball::update(float rms){
         else if (rms> 0.1) toAdd = 0.03;
     }
     
-    angle -= toAdd;
+    angle += toAdd;
     //reset if necessary
-    if (angle < 0){
-        angle = 2*M_PI;
-    }
-    //    if (angle > (2*M_PI)){
-    //        angle = 0;
+    //    if (angle < 0){
+    //        angle = 2*M_PI;
     //    }
+    
+    if (angle > (2*M_PI)){
+        angle = 0;
+    }
+    
     int factor = (int(rms*50) % 10);
     
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
     x =  cos(angle)*radius + centerX;
     y =  centerY - sin(angle)*radius;
+    
+    
+    // --------------------------------reverse
+//    angle -= toAdd;
+//    //reset if necessary
+//    if (angle < 0){
+//        angle = 2*M_PI;
+//    }
+//    //    if (angle > (2*M_PI)){
+//    //        angle = 0;
+//    //    }
+//    int factor = (int(rms*50) % 10);
+//    
+//    int centerX = ofGetWidth()/2;
+//    int centerY = ofGetHeight()/2;
+//    x =  cos(angle)*radius + centerX;
+//    y =  centerY - sin(angle)*radius;
 }
 
 void layer1Ball::draw(){
@@ -128,10 +151,10 @@ void layer1Ball::drawInfo(){
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetFrameRate(120);
+    ofSetFrameRate(60);
     
     ofBackground(22);
-    ofBackground(206,206,206);
+    ofBackground(0,0,0);
     ofFbo::Settings s;
     s.width = ofGetWidth();
     s.height = ofGetHeight();
@@ -148,7 +171,7 @@ void testApp::setup(){
     
 //    Audio analyzer setup
     int sampleRate = 44100;
-    int bufferSize = 256;
+    int bufferSize = 128;
     int outChannels = 0;
     int inChannels = 2;
     int ticksPerBuffer = bufferSize/64;
@@ -164,18 +187,23 @@ void testApp::setup(){
     ofEnableBlendMode(OF_BLENDMODE_SCREEN);
 //    ofEnableSmoothing();
     
-    for (int k = 0; k<NBALLS; k++){
-        float angle = float((360.0)/(NBALLS)) * k;
-        ofBall newBall;
-        newBall.setup(angle);
-        myBall[k] = newBall;
+    for (int k = 0; k< NBALLS; k++){
+        float angle = float((360)/(NBALLS)) * k;
+//        ofBall newBall;
+//        newBall.setup(angle);
+        myBall[k].setup(angle);
+
     }
 
     for (int m = 0; m<NLayer1; m++){
-        float ang = float((360.0)/NLayer1) * m;
-        layer1Ball lay1Ball;
-        lay1Ball.setup(ang);
-        layer1[m] = lay1Ball;
+        fprintf(stderr, "created %d th ball for nlayer1\n",m);
+        float angle = float((360)/(NLayer1)) * m;
+        layer1[m].setup(angle);
+        fprintf(stderr, "angle after setup=%F\n",layer1[m].angle);
+    }
+    
+    for (int a = 0; a<NLayer1; a++){
+        fprintf(stderr, "ball %d angle = %F",a, layer1[a].angle);
     }
 }
 
@@ -269,11 +297,9 @@ void testApp::draw(){
 //        myBall[a].drawInfo();
 //    }
 //    
-//    for (int b=0; b<NLayer1; b++){
-//        layer1[b].drawInfo();
-//    }
-//    
-    
+    for (int b=0; b<NLayer1; b++){
+        layer1[b].drawInfo();
+    }
     
     //draw info
     string info =	"blurOffset: " + ofToString(gpuBlur.blurOffset) + "\n" +
