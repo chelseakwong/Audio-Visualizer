@@ -6,16 +6,78 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.h"
+            timestampString = "475224234.384686"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "class testApp"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "non-virtual thunk to testApp::~testApp()"
+                  moduleName = "myProductiveSketch"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
+                  timestampString = "475222545.122197"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "9">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "non-virtual thunk to testApp::~testApp()"
+                  moduleName = "myProductiveSketch"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
+                  timestampString = "475222545.122434"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "9">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "475224682.160872"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "475087711.925871"
+            timestampString = "475224682.160872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "testApp::setup()"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "testApp::update()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.h"
-            timestampString = "475087132.581133"
+            timestampString = "475224234.384686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "class testApp"
             landmarkType = "3">
             <Locations>
@@ -42,11 +104,11 @@
                   moduleName = "myProductiveSketch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
-                  timestampString = "475083731.316136"
+                  timestampString = "475222545.124361"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
                   offsetFromSymbolStart = "9">
                </Location>
                <Location
@@ -57,11 +119,11 @@
                   moduleName = "myProductiveSketch"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chelseakwong/openframeworks/of_v0.9.0_osx_release/apps/myApps/myProductiveSketch/src/ofApp.h"
-                  timestampString = "475083731.316451"
+                  timestampString = "475222545.124535"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
                   offsetFromSymbolStart = "9">
                </Location>
             </Locations>
@@ -70,15 +132,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
-            timestampString = "475087711.925871"
+            timestampString = "475224682.160872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104">
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "testApp::setup()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

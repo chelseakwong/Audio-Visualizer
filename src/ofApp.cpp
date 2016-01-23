@@ -1,18 +1,15 @@
-#include "particle.h"
 #include "ofApp.h"
+#include <math.h>
 
-
-ofBall::ofBall(int angle){
+//-------------- ofBall = cyan ones, layer 2 -------------
+void ofBall::setup(float angle){
+//    angle = ang;
+    float radianAng = M_PI/2 - 2*M_PI*(angle/360);
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
-    int radius = 120;
-    x = cos(angle)*radius + centerX;
-    y =  centerY - sin(angle)*radius;
-    string info = "angle: " +ofToString(angle)+ "x: "+ofToString(x)+"y: "+ofToString(y);
-    ofDrawBitmapStringHighlight(info, x,y);
-    
-//    x = ofRandom(0,ofGetWidth());   //x origin
-//    y = ofRandom(0,ofGetHeight());  //y origin
+    radius = 150;
+    x =  cos(radianAng)*radius + centerX;
+    y =  centerY - sin(radianAng)*radius;
     
 //    speedX = ofRandom(-1, 1) * 1;           // and random speed and direction
 //    speedY = ofRandom(-1, 1) * 1;
@@ -20,45 +17,121 @@ ofBall::ofBall(int angle){
     speedY = 1;
     
     dim = 10;
+    angle = radianAng;
 }
 
-void ofBall::update(float factor){
-    factor = (int(factor) % 10);
-    
-    if(x < 0 ){
-        x = 0;
-        speedX *= -1;
-    } else if(x > ofGetWidth()){
-        x = ofGetWidth();
-        speedX *= -1;
+void ofBall::update(float rms){
+    //if loud enough then move faster
+    float toAdd = 0.01; //default movement
+    if (rms >= 0.01){
+        if (rms> 0.02) toAdd = 0.015;
+        else if (rms > 0.05) toAdd = 0.02;
+        else if (rms> 0.1) toAdd = 0.03;
     }
     
-    if(y < 0 ){
-        y = 0;
-        speedY *= -1;
-    } else if(y > ofGetHeight()){
-        y = ofGetHeight();
-        speedY *= -1;
+    angle += toAdd;
+    //reset if necessary
+//    if (angle < 0){
+//        angle = 2*M_PI;
+//    }
+    
+    if (angle > (2*M_PI)){
+        angle = 0;
     }
     
-    if (factor == 0) factor = 0.1;
+    int factor = (int(rms*50) % 10);
     
-    x+=(speedX * factor);
-    y+=(speedY * factor);
+    int centerX = ofGetWidth()/2;
+    int centerY = ofGetHeight()/2;
+    x =  cos(angle)*radius + centerX;
+    y =  centerY - sin(angle)*radius;
+    
+//    if(y < 0 ){
+//        y = 0;
+//        speedY *= -1;
+//    } else if(y > ofGetHeight()){
+//        y = ofGetHeight();
+//        speedY *= -1;
+//    }
+//    
+//    if (factor == 0) factor = 0.1;
+    
 }
 
 void ofBall::draw(){
     // values for R, G, B
-    ofSetColor(255,255,255);
+    ofSetColor(0,255,255);
     ofDrawCircle(x, y, dim);
+}
+
+void ofBall::drawInfo(){
+    string info = "ofball\n angle: " +ofToString(angle)+ "\nx: "+ofToString(x)+"\ny: "+ofToString(y);
+    ofDrawBitmapStringHighlight(info, x,y);
+}
+
+//-------------- layer 1 ball = red ones -------------
+//class layer1Ball : public ofBall{
+//public:
+
+void layer1Ball::setup(float angle){
+    float radianAng = M_PI/2 - 2*M_PI*(angle/360);
+    int centerX = ofGetWidth()/2;
+    int centerY = ofGetHeight()/2;
+    radius = 80;
+    x =  cos(radianAng)*radius + centerX;
+    y =  centerY - sin(radianAng)*radius;
+    
+    //    speedX = ofRandom(-1, 1) * 1;           // and random speed and direction
+    //    speedY = ofRandom(-1, 1) * 1;
+    speedX = 1;
+    speedY = 1;
+    
+    dim = 5;
+    angle = radianAng;
+}
+
+void layer1Ball::update(float rms){
+    //if loud enough then move faster
+    float toAdd = 0.01; //default movement
+    if (rms >= 0.01){
+        if (rms> 0.02) toAdd = 0.015;
+        else if (rms > 0.05) toAdd = 0.02;
+        else if (rms> 0.1) toAdd = 0.03;
+    }
+    
+    angle -= toAdd;
+    //reset if necessary
+    if (angle < 0){
+        angle = 2*M_PI;
+    }
+    //    if (angle > (2*M_PI)){
+    //        angle = 0;
+    //    }
+    int factor = (int(rms*50) % 10);
+    
+    int centerX = ofGetWidth()/2;
+    int centerY = ofGetHeight()/2;
+    x =  cos(angle)*radius + centerX;
+    y =  centerY - sin(angle)*radius;
+}
+
+void layer1Ball::draw(){
+        ofSetColor(255,0,255);
+        ofDrawCircle(x, y, dim);
+}
+    
+void layer1Ball::drawInfo(){
+        string info = "layer 1 ball\n angle: " +ofToString(angle)+ "\nx: "+ofToString(x)+"\ny: "+ofToString(y);
+        ofDrawBitmapStringHighlight(info, x,y);
 }
 
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetFrameRate(60);
+    ofSetFrameRate(120);
     
     ofBackground(22);
+    ofBackground(206,206,206);
     ofFbo::Settings s;
     s.width = ofGetWidth();
     s.height = ofGetHeight();
@@ -71,7 +144,7 @@ void testApp::setup(){
     s.useStencil = false;
     
     gpuBlur.setup(s, false);
-    ofLoadImage(tex, "zoidberg.png");
+//    ofLoadImage(tex, "zoidberg.png");
     
 //    Audio analyzer setup
     int sampleRate = 44100;
@@ -89,33 +162,39 @@ void testApp::setup(){
  
     ofEnableAntiAliasing();
     ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-    
-//    particles = new Particle[300];
-//    for(int j = 0; j < NPARTICLES; j++){
-//        particles[j] = Particle(ofPoint(100, ofGetHeight()-100));
-//    }
+//    ofEnableSmoothing();
     
     for (int k = 0; k<NBALLS; k++){
-        int angle = (360/NBALLS)*k;
-        myBall[k] = new ofBall(angle);
+        float angle = float((360.0)/(NBALLS)) * k;
+        ofBall newBall;
+        newBall.setup(angle);
+        myBall[k] = newBall;
     }
- 
+
+    for (int m = 0; m<NLayer1; m++){
+        float ang = float((360.0)/NLayer1) * m;
+        layer1Ball lay1Ball;
+        lay1Ball.setup(ang);
+        layer1[m] = lay1Ball;
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    float rms = audioAnalyzer1.getRms();
-    if (rms >= 0.05){
-        for (int i = 0; i<NBALLS; i++){
-            myBall[i]->update(50*rms);
-        }
+    float hiRms = audioAnalyzer1.getRms();
+    for (int i = 0; i<NBALLS; i++){
+        myBall[i].update(hiRms);
     }
     
-    if (rms > 0.01){
-        gpuBlur.blurOffset = 1000*rms;
+    for (int j = 0; j<NLayer1; j++){
+        layer1[j].update(hiRms);
+    }
+    
+    if (hiRms > 0.01){
+        gpuBlur.blurOffset = 1000*hiRms;
     }
     else{
-        gpuBlur.blurOffset = 0;
+        gpuBlur.blurOffset = 5;
     }
 //    gpuBlur.blurOffset = 100 * ofMap(mouseY, 0, ofGetHeight(), 1, 0, true);
     //gpuBlur.blurOffset = 15;
@@ -125,7 +204,7 @@ void testApp::update(){
         gpuBlur.blurPasses = 1000*audioAnalyzer2.getRms();
     }
     else{
-        gpuBlur.blurPasses = 0;
+        gpuBlur.blurPasses = 5;
     }
 //    gpuBlur.blurPasses = 50 * ofMap(mouseX, 0, ofGetWidth(), 0, 1, true);
     //gpuBlur.blurPasses = 1;
@@ -151,23 +230,24 @@ void testApp::audioIn(float * input, int bufferSize, int nChannels){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    ofBackgroundGradient(ofColor::grey, ofColor::black);
+//    ofBackgroundGradient(ofColor::grey, ofColor::black);
 //    ofBackground(0, 0, 0);
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     gpuBlur.beginDrawScene();
     ofClear(0, 0, 0, 0);
+    
+    //layer 2, cyan ones
     for (int j = 0; j<NBALLS; j++){
-        myBall[j]->draw();
+        myBall[j].draw();
     }
+    
+    for (int k = 0; k<NLayer1; k++){
+        layer1[k].draw();
+    }
+    
     tex.draw(0,0);
     
     ofSetColor(0,0,0);
-   
-//    PARTICLES
-//    for (int k = 0; k<NPARTICLES; k++){
-//        particles[k].update();
-//        particles[k].draw();
-//    }
     
     gpuBlur.endDrawScene();
     
@@ -184,6 +264,15 @@ void testApp::draw(){
     gpuBlur.drawBlurFbo();
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
+//    
+//    for (int a = 0; a<NBALLS; a++){
+//        myBall[a].drawInfo();
+//    }
+//    
+//    for (int b=0; b<NLayer1; b++){
+//        layer1[b].drawInfo();
+//    }
+//    
     
     
     //draw info
@@ -198,7 +287,7 @@ void testApp::draw(){
     "energy: " + ofToString(audioAnalyzer1.getEnergy()) + "\n" +
     "pitch frequency: " + ofToString(audioAnalyzer1.getPitchFreq()) + "\n";
     
-    ofDrawBitmapStringHighlight(audioInfo, 20, 360);
+//    ofDrawBitmapStringHighlight(audioInfo, 20, 360);
     
 //    ofDrawBitmapStringHighlight("MouseX to control Blur Passes\nMouseY to control blur Offset", 400,20);
     
@@ -210,7 +299,7 @@ void testApp::keyPressed(int key){
     ofTexture shadowTexture = gpuBlur.getBlurredSceneFbo().getTexture();
     ofPixels pixels;
     shadowTexture.readToPixels(pixels);
-    ofSaveImage(pixels, "shadow.tga");
+//    ofSaveImage(pixels, "shadow.tga");
     
     
 }
@@ -224,78 +313,6 @@ void testApp::exit(){
     audioAnalyzer2.exit();
     
 }
-//--------------------------------------------------------------
-
-Particle::Particle(ofPoint l){
-    counter = 0;
-    float randmin = -HALF_PI;
-    float randmax = 0;
-    
-    float r = ofRandom(0, TWO_PI);
-    float x = cos(r);
-    float y = sin(r);
-    acc = ofPoint(x / 250, y / 250);
-    
-    float q = ofRandom(0, 1);
-    r = ofRandom(randmin, randmax);
-    x = cos(r) * q;
-    y = sin(r) * q;
-    vel = ofPoint(x, y);
-    loc = l;
-    hist = new ofPoint[1000];
-}
-//--------------------------------------------------------------
-
-void Particle::update(){
-    vel += acc;
-    loc += vel;
-    if(ofGetFrameNum() % 10 == 0 && counter < 1000){
-        hist[counter].x = loc.x;
-        hist[counter].y = loc.y;
-        counter++;
-    }
-}
-//--------------------------------------------------------------
-
-void Particle::draw(){
-    ofFill();
-    ofSetColor(100, 100, 100, 100);
-    drawArrowHead(vel, loc, 10);
-    ofNoFill();
-    ofSetColor(0, 0, 0, 100);
-    ofBeginShape();
-    for(int i = 0; i < counter; i++){
-        ofVertex(hist[i].x, hist[i].y);
-    }
-    if(counter > 0) ofVertex(loc.x, loc.y);
-    ofEndShape(false);
-}
-//--------------------------------------------------------------
-
-void Particle::drawArrowHead(ofPoint v, ofPoint loc, float scale){
-    ofPushMatrix();
-    float arrowsize = 5.0f;
-    ofTranslate(loc.x, loc.y, 0);
-    float rotate = atan2(v.y, v.x);
-    ofRotate(ofRadToDeg(rotate), 0, 0, 1);
-    
-    float inX = v.x;
-    float inY = v.y;
-    
-    float len = (sqrt(inX * inX + inY * inY)) * scale;
-    arrowsize = ofMap(len, 0.f, 10.f, 0.f, 1.f, false) * arrowsize;
-    
-    ofDrawLine(0, 0, len-arrowsize, 0);
-    
-    ofBeginShape();
-    ofVertex(len, 0);
-    ofVertex(len-arrowsize, arrowsize/2);
-    ofVertex(len-arrowsize, -arrowsize/2);
-    ofEndShape(true);
-    
-    ofPopMatrix();
-}
-
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
     

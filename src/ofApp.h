@@ -1,34 +1,47 @@
 #pragma once
 
 #include "ofMain.h"
-#include "particle.h"
 #include "ofxFboBlur.h"
 #include "ofxAudioAnalyzer.h"
 
-#define NBALLS 12
-#define NPARTICLES 300
-
+#define NBALLS 5
+#define NLayer1 1
 
 class ofBall{
 public:
     //methods
-    void update(float freq);
-    void draw();
+    virtual void setup(float angle);
+    virtual void update(float rms);
+    virtual void draw();
+    virtual void drawInfo();
     
-    //constructor
-    ofBall(int angle);
+    
     //variables
+    float angle;
     float x;
     float y;
     int dim;
+    int radius;
     float speedX;
     float speedY;
 private:
 };
 
+class layer1Ball : public ofBall{
+public:
+    void setup(float angle);
+    void update(float rms);
+    void draw();
+    void drawInfo();
+};
+
+class layer3Ball: public ofBall{
+    void update(float rms);
+    void draw();
+};
+
 class testApp : public ofBaseApp{
 public:
-    ofBall* myBall[NBALLS];
     void setup();
     void update();
     void draw();
@@ -59,6 +72,8 @@ public:
     float *buffer_1;
     float *buffer_2;
     
-    Particle particles[NPARTICLES];
+    //balls
+    ofBall myBall[NBALLS];
+    layer1Ball layer1[NLayer1];
 };
 
