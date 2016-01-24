@@ -11,9 +11,6 @@ void ofBall::setup(float angle){
     radius = 150;
     x =  cos(radianAng)*radius + centerX;
     y =  centerY - sin(radianAng)*radius;
-    
-//    speedX = ofRandom(-1, 1) * 1;           // and random speed and direction
-//    speedY = ofRandom(-1, 1) * 1;
     speedX = 1;
     speedY = 1;
     
@@ -24,11 +21,13 @@ void ofBall::setup(float angle){
 void ofBall::update(float rms){
     //if loud enough then move faster
     float toAdd = 0.01; //default movement
-    if (rms >= 0.01){
-        if (rms> 0.02) toAdd = 0.015;
-        else if (rms > 0.05) toAdd = 0.02;
-        else if (rms> 0.1) toAdd = 0.03;
+    if (rms > 0.01){
+        dim = rms * 400;
+        if (rms> 0.03) toAdd = 0.02;
+        else if (rms > 0.05) toAdd = 0.03;
+        else if (rms> 0.1) toAdd = 0.04;
     }
+    else dim = 4;
     
     angle += toAdd;
     //reset if necessary
@@ -47,21 +46,11 @@ void ofBall::update(float rms){
     x =  cos(angle)*radius + centerX;
     y =  centerY - sin(angle)*radius;
     
-//    if(y < 0 ){
-//        y = 0;
-//        speedY *= -1;
-//    } else if(y > ofGetHeight()){
-//        y = ofGetHeight();
-//        speedY *= -1;
-//    }
-//    
-//    if (factor == 0) factor = 0.1;
-    
 }
 
 void ofBall::draw(){
     // values for R, G, B
-    ofSetColor(0,255,255);
+    ofSetColor(0,255,255, 50);
     ofDrawCircle(x, y, dim);
 }
 
@@ -70,7 +59,7 @@ void ofBall::drawInfo(){
     ofDrawBitmapStringHighlight(info, x,y);
 }
 
-//-------------- layer 1 ball = red ones -------------
+//-------------- layer 1 ball = magenta ones -------------
 //class layer1Ball : public ofBall{
 //public:
 
@@ -81,7 +70,7 @@ void layer1Ball::setup(float angle){
     this->angle = radianAng;
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
-    radius = 120;
+    radius = 150;
     x =  cos(radianAng)*radius + centerX;
     y =  centerY - sin(radianAng)*radius;
     
@@ -90,7 +79,7 @@ void layer1Ball::setup(float angle){
     speedX = 1;
     speedY = 1;
     
-    dim = 10;
+    dim = 8;
     //    angle = radianAng;
 }
 
@@ -98,10 +87,58 @@ void layer1Ball::update(float rms){
     //if loud enough then move faster
     float toAdd = 0.01; //default movement
     if (rms >= 0.01){
+        dim = rms * 400;
         if (rms> 0.02) toAdd = 0.015;
         else if (rms > 0.05) toAdd = 0.02;
         else if (rms> 0.1) toAdd = 0.03;
     }
+    else dim = 4;
+    
+    angle -= toAdd;
+    //reset if necessary
+        if (angle < -2*M_PI){
+            angle = 2*M_PI;
+        }
+    
+    int factor = (int(rms*50) % 10);
+    
+    int centerX = ofGetWidth()/2;
+    int centerY = ofGetHeight()/2;
+    x =  cos(angle)*radius + centerX;
+    y =  centerY - sin(angle)*radius;
+}
+
+void layer1Ball::draw(){
+        ofSetColor(255,0,255,50);
+        ofDrawCircle(x, y, dim);
+}
+    
+void layer1Ball::drawInfo(){
+        string info = "layer 1 ball\n angle: " +ofToString(angle)+ "\nx: "+ofToString(x)+"\ny: "+ofToString(y);
+        ofDrawBitmapStringHighlight(info, x,y);
+}
+//--------------------------------------------------------------
+void yellowBall::draw(){
+    ofSetColor(255,255,0,50);
+    ofDrawCircle(x, y, dim);
+}
+
+void yellowBall::update(float rms){
+    float toAdd = 0.018; //default movement
+    if (rms >= 0.01){
+        dim = rms * 400;
+        radius += rms * 600;
+        //150 = rms * x
+
+        if (rms> 0.02) toAdd = 0.02;
+        else if (rms > 0.05) toAdd = 0.03;
+        else if (rms> 0.1) toAdd = 0.04;
+    }
+    else {
+        radius = 150;
+        dim = 4;
+    }
+
     
     angle += toAdd;
     //reset if necessary
@@ -118,43 +155,15 @@ void layer1Ball::update(float rms){
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
     x =  cos(angle)*radius + centerX;
-    y =  centerY - sin(angle)*radius;
-    
-    
-    // --------------------------------reverse
-//    angle -= toAdd;
-//    //reset if necessary
-//    if (angle < 0){
-//        angle = 2*M_PI;
-//    }
-//    //    if (angle > (2*M_PI)){
-//    //        angle = 0;
-//    //    }
-//    int factor = (int(rms*50) % 10);
-//    
-//    int centerX = ofGetWidth()/2;
-//    int centerY = ofGetHeight()/2;
-//    x =  cos(angle)*radius + centerX;
-//    y =  centerY - sin(angle)*radius;
-}
-
-void layer1Ball::draw(){
-        ofSetColor(255,0,255);
-        ofDrawCircle(x, y, dim);
-}
-    
-void layer1Ball::drawInfo(){
-        string info = "layer 1 ball\n angle: " +ofToString(angle)+ "\nx: "+ofToString(x)+"\ny: "+ofToString(y);
-        ofDrawBitmapStringHighlight(info, x,y);
-}
+    y =  centerY - sin(angle)*radius;}
 
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetFrameRate(60);
+    ofSetFrameRate(120);
     
     ofBackground(22);
-    ofBackground(0,0,0);
+    ofBackground(255,255,255);
     ofFbo::Settings s;
     s.width = ofGetWidth();
     s.height = ofGetHeight();
@@ -184,32 +193,44 @@ void testApp::setup(){
     soundStream.setup(this, outChannels, inChannels, sampleRate, bufferSize, ticksPerBuffer);
  
     ofEnableAntiAliasing();
-    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
 //    ofEnableSmoothing();
     
+    //cyan
     for (int k = 0; k< NBALLS; k++){
-        float angle = float((360)/(NBALLS)) * k;
+        float angle = float((180)/(NBALLS)) * k;
 //        ofBall newBall;
 //        newBall.setup(angle);
         myBall[k].setup(angle);
-
     }
 
+    //magenta
     for (int m = 0; m<NLayer1; m++){
-        fprintf(stderr, "created %d th ball for nlayer1\n",m);
-        float angle = float((360)/(NLayer1)) * m;
+//        fprintf(stderr, "created %d th ball for nlayer1\n",m);
+        float angle = float((120)/(NLayer1)) * m;
         layer1[m].setup(angle);
-        fprintf(stderr, "angle after setup=%F\n",layer1[m].angle);
+//        fprintf(stderr, "angle after setup=%F\n",layer1[m].angle);
     }
     
-    for (int a = 0; a<NLayer1; a++){
-        fprintf(stderr, "ball %d angle = %F",a, layer1[a].angle);
+    //yellow
+    for (int q = 0; q< yellowBalls; q++){
+        float angle = float((270)/(yellowBalls)) * q;
+        //        ofBall newBall;
+        //        newBall.setup(angle);
+        yellows[q].setup(angle);
+        yellows[q].dim = 11;
+        yellows[q].radius = 150;
     }
+    
+//    for (int a = 0; a<NLayer1; a++){
+//        fprintf(stderr, "ball %d angle = %F",a, layer1[a].angle);
+//    }
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     float hiRms = audioAnalyzer1.getRms();
+    
     for (int i = 0; i<NBALLS; i++){
         myBall[i].update(hiRms);
     }
@@ -218,26 +239,30 @@ void testApp::update(){
         layer1[j].update(hiRms);
     }
     
+    for (int k = 0; k<yellowBalls; k++){
+        yellows[k].update(hiRms);
+    }
+    
     if (hiRms > 0.01){
-        gpuBlur.blurOffset = 1000*hiRms;
+        gpuBlur.blurOffset = 400*hiRms;
     }
     else{
-        gpuBlur.blurOffset = 5;
+        gpuBlur.blurOffset = 3;
     }
 //    gpuBlur.blurOffset = 100 * ofMap(mouseY, 0, ofGetHeight(), 1, 0, true);
     //gpuBlur.blurOffset = 15;
 
-    float rms2 = audioAnalyzer2.getRms();
-    if (rms2 > 0.01){
-        gpuBlur.blurPasses = 1000*audioAnalyzer2.getRms();
+//    float rms2 = audioAnalyzer2.getRms();
+    if (hiRms > 0.01){
+        gpuBlur.blurPasses = 400*hiRms;
     }
     else{
-        gpuBlur.blurPasses = 5;
+        gpuBlur.blurPasses = 3;
     }
 //    gpuBlur.blurPasses = 50 * ofMap(mouseX, 0, ofGetWidth(), 0, 1, true);
     //gpuBlur.blurPasses = 1;
 
-    gpuBlur.numBlurOverlays = 7;
+    gpuBlur.numBlurOverlays = 5;
     gpuBlur.blurOverlayGain = 255;
 }
 
@@ -258,8 +283,8 @@ void testApp::audioIn(float * input, int bufferSize, int nChannels){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-//    ofBackgroundGradient(ofColor::grey, ofColor::black);
-//    ofBackground(0, 0, 0);
+//    ofBackgroundGradient(ofColor::white, ofColor::black);
+    ofBackground(0, 0, 0);
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     gpuBlur.beginDrawScene();
     ofClear(0, 0, 0, 0);
@@ -273,8 +298,22 @@ void testApp::draw(){
         layer1[k].draw();
     }
     
+    for (int o = 0; o<yellowBalls; o++){
+        yellows[o].draw();
+    }
+    
     tex.draw(0,0);
     
+    ofSetColor(0,0,0);
+
+    gpuBlur.endDrawScene();
+    
+    
+    //draw core
+    gpuBlur.beginDrawScene();
+//    ofClear(0, 0, 0, 0);
+    ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, 10);
+    tex.draw(0,0);
     ofSetColor(0,0,0);
     
     gpuBlur.endDrawScene();
@@ -284,22 +323,23 @@ void testApp::draw(){
     gpuBlur.performBlur();
     
     //draw the "clean" scene
-//    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
     gpuBlur.drawSceneFBO();
+    
+
     
     //overlay the blur on top
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); //pre-multiplied alpha
     gpuBlur.drawBlurFbo();
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
 //    
 //    for (int a = 0; a<NBALLS; a++){
 //        myBall[a].drawInfo();
 //    }
 //    
-    for (int b=0; b<NLayer1; b++){
-        layer1[b].drawInfo();
-    }
+//    for (int b=0; b<NLayer1; b++){
+//        layer1[b].drawInfo();
+//    }
     
     //draw info
     string info =	"blurOffset: " + ofToString(gpuBlur.blurOffset) + "\n" +

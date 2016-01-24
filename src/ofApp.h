@@ -6,6 +6,7 @@
 
 #define NBALLS 12
 #define NLayer1 4
+#define yellowBalls 8
 
 class ofBall{
 public:
@@ -26,6 +27,7 @@ public:
 private:
 };
 
+//magenta
 class layer1Ball : public ofBall{
 public:
     void setup(float angle);
@@ -34,9 +36,11 @@ public:
     void drawInfo();
 };
 
-class layer3Ball: public ofBall{
-    void update(float rms);
+//yellow
+class yellowBall : public ofBall{
+public:
     void draw();
+    void update(float rms);
 };
 
 class testApp : public ofBaseApp{
@@ -74,5 +78,6 @@ public:
     //balls
     ofBall myBall[NBALLS];
     layer1Ball layer1[NLayer1];
+    yellowBall yellows[yellowBalls];
 };
 
