@@ -127,8 +127,6 @@ void yellowBall::update(float rms){
     float toAdd = 0.018; //default movement
     if (rms >= 0.01){
         dim = rms * 400;
-        radius += rms * 600;
-        //150 = rms * x
 
         if (rms> 0.02) toAdd = 0.02;
         else if (rms > 0.05) toAdd = 0.03;
@@ -139,31 +137,53 @@ void yellowBall::update(float rms){
         dim = 4;
     }
 
-    
     angle += toAdd;
     //reset if necessary
-    //    if (angle < 0){
-    //        angle = 2*M_PI;
-    //    }
-    
     if (angle > (2*M_PI)){
         angle = 0;
     }
     
-    int factor = (int(rms*50) % 10);
+    int centerX = ofGetWidth()/2;
+    int centerY = ofGetHeight()/2;
+    x =  cos(angle)*radius + centerX;
+    y =  centerY - sin(angle)*radius;
+}
+
+//------ white outs -----------------------------
+
+
+void whiteOut::update(float rms){
+    float toAdd = 0.012; //default movement
+//    if (rms >= 0.01){
+//        dim = rms * 400;
+//    }
+//    else{
+//        dim = 6;
+//    }
+//    
+    angle += toAdd;
+    //reset if necessary
+    if (angle > (2*M_PI)){
+        angle = 0;
+    }
     
     int centerX = ofGetWidth()/2;
     int centerY = ofGetHeight()/2;
     x =  cos(angle)*radius + centerX;
-    y =  centerY - sin(angle)*radius;}
+    y =  centerY - sin(angle)*radius;
+}
 
+void whiteOut::draw(){
+    ofSetColor(255,255,255,50);
+    ofDrawCircle(x, y, dim);
+}
 
 //--------------------------------------------------------------
 void testApp::setup(){
     ofSetFrameRate(120);
     
     ofBackground(22);
-    ofBackground(255,255,255);
+    ofBackground(220,220,220);
     ofFbo::Settings s;
     s.width = ofGetWidth();
     s.height = ofGetHeight();
@@ -199,8 +219,6 @@ void testApp::setup(){
     //cyan
     for (int k = 0; k< NBALLS; k++){
         float angle = float((180)/(NBALLS)) * k;
-//        ofBall newBall;
-//        newBall.setup(angle);
         myBall[k].setup(angle);
     }
 
@@ -218,8 +236,12 @@ void testApp::setup(){
         //        ofBall newBall;
         //        newBall.setup(angle);
         yellows[q].setup(angle);
-        yellows[q].dim = 11;
-        yellows[q].radius = 150;
+    }
+    
+    for (int p = 0; p< whites; p++){
+        float angle = float((360)/(whites)) * p;
+        whiteOuts[p].setup(angle);
+        whiteOuts[p].radius = 190;
     }
     
 //    for (int a = 0; a<NLayer1; a++){
@@ -241,6 +263,10 @@ void testApp::update(){
     
     for (int k = 0; k<yellowBalls; k++){
         yellows[k].update(hiRms);
+    }
+    
+    for (int l = 0; l<whites; l++){
+        whiteOuts[l].update(hiRms);
     }
     
     if (hiRms > 0.01){
@@ -284,7 +310,7 @@ void testApp::audioIn(float * input, int bufferSize, int nChannels){
 void testApp::draw(){
     
 //    ofBackgroundGradient(ofColor::white, ofColor::black);
-    ofBackground(0, 0, 0);
+    ofBackground(0,0,0);
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     gpuBlur.beginDrawScene();
     ofClear(0, 0, 0, 0);
@@ -300,6 +326,10 @@ void testApp::draw(){
     
     for (int o = 0; o<yellowBalls; o++){
         yellows[o].draw();
+    }
+    
+    for (int l = 0; l<whites; l++){
+        whiteOuts[l].draw();
     }
     
     tex.draw(0,0);

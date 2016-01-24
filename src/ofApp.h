@@ -7,6 +7,7 @@
 #define NBALLS 12
 #define NLayer1 4
 #define yellowBalls 8
+#define whites 18
 
 class ofBall{
 public:
@@ -41,6 +42,13 @@ class yellowBall : public ofBall{
 public:
     void draw();
     void update(float rms);
+};
+
+//white extra with bouncing off
+class whiteOut : public ofBall{
+public:
+    void update(float rms);
+    void draw();
 };
 
 class testApp : public ofBaseApp{
@@ -79,5 +87,7 @@ public:
     ofBall myBall[NBALLS];
     layer1Ball layer1[NLayer1];
     yellowBall yellows[yellowBalls];
+    whiteOut whiteOuts[whites];
+    
 };
 
